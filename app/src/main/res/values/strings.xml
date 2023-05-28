@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="text_acesse">Acesse</string>
+    <string name="text_cadastrar">Cadastro</string>
+    <string name="text_entrar">Com o e-mail e senha para entrar</string>
+    <string name="text_cadastro">Preencha os campos para se cadastrar</string>
+    <string name="text_digi_email">Digite seu e-mail</string>
+    <string name="text_digi_senha">Digite sua senha</string>
+</resources>

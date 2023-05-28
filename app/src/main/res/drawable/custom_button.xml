@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="true" android:state_focused="true">
+        <shape android:shape="rectangle">
+            <gradient android:type="linear"
+                android:startColor="@color/madeira"
+                android:endColor="@color/madeira_escura"
+                android:angle="45" />
+            <corners android:radius="20dp"/>
+        </shape>
+    </item>
+    <item android:state_enabled="true">
+        <shape android:shape="rectangle">
+            <gradient android:type="linear"
+                android:startColor="@color/madeira_clara"
+                android:endColor="@color/madeira_escura"
+                android:angle="245" />
+            <corners android:radius="15dp"/>
+        </shape>
+    </item>
+</selector>
