@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
@@ -20,24 +22,25 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etSenha;
     private TextView tvAvisos;
+    private Button btEntrar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         this.auth = FirebaseAuth.getInstance();
 
         this.etEmail = findViewById(R.id.input_email);
         this.etSenha = findViewById(R.id.input_senha);
         this.tvAvisos = findViewById(R.id.text_avisos);
+        this.btEntrar = findViewById(R.id.bt_entrar);
 
-        Button btLogin = findViewById(R.id.bt_entrar);
         Button btCadastro = findViewById(R.id.bt_cadastrar);
         ImageView voltar = findViewById(R.id.voltar);
 
-        btLogin.setOnClickListener(this::onClickEntrar);
+        this.btEntrar.setOnClickListener(this::onClickEntrar);
 
         btCadastro.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
@@ -45,6 +48,12 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         voltar.setOnClickListener(v -> onBackPressed());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.btEntrar.setClickable(true);
     }
 
     private void onClickEntrar(View v) {
@@ -60,13 +69,22 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        this.tvAvisos.setText("");
+
         this.auth.signInWithEmailAndPassword(email, senha)
                 .addOnSuccessListener(this::abrirJogo)
-                .addOnFailureListener(e -> tvAvisos.setText("Falha ao logar: " + e.getMessage()));
+                .addOnFailureListener(e -> {
+                    tvAvisos.setText("Falha ao logar: " + e.getMessage());
+                    ((Button) v).setClickable(true);
+                });
+
+        ((Button) v).setClickable(false);
     }
+
 
     private void abrirJogo(AuthResult authResult) {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
+
 }

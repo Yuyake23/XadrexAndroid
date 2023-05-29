@@ -68,6 +68,8 @@ public class CadastroActivity extends AppCompatActivity {
             return;
         }
 
+        this.tvAvisos.setText("");
+
         this.auth.createUserWithEmailAndPassword(email, senha)
                 .addOnSuccessListener(authResult -> {
                     Intent intent = new Intent(CadastroActivity.this, HomeActivity.class);
