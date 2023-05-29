@@ -125,12 +125,22 @@
                 android:textColor="@color/madeira_escura"
                 android:textColorHint="@color/hint" />
 
+            <TextView
+                android:id="@+id/text_avisos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/aviso"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_cadastrar"
                 android:layout_width="200dp"
                 android:layout_height="52dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="18dp"
                 android:background="@drawable/custom_button"
                 android:fontFamily="sans-serif-black"
                 android:shadowRadius="20"

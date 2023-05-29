@@ -1,13 +1,14 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
-    namespace 'com.example.login'
+    namespace 'com.example.xadrez'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.login"
+        applicationId "com.example.xadrez"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -29,6 +30,9 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-auth:21.3.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.3.0'
+    implementation 'com.google.firebase:firebase-firestore:24.5.0'
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'

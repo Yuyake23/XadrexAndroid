@@ -3,26 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@drawable/background"
+    android:orientation="vertical"
     android:padding="16dp"
     android:scrollbarAlwaysDrawHorizontalTrack="true">
 
 
     <ImageView
         android:id="@+id/voltar"
-        android:layout_marginTop="12dp"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@drawable/voltar"/>
+        android:layout_marginTop="12dp"
+        android:contentDescription="botao voltar"
+        android:src="@drawable/voltar" />
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/container"
         android:layout_marginTop="10dp"
+        android:background="@drawable/container"
         android:elevation="10dp">
 
         <LinearLayout
@@ -33,43 +33,44 @@
 
             <TextView
                 android:id="@+id/text_acesse"
-                android:layout_marginTop="8dp"
-                android:paddingStart="28dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:paddingStart="28dp"
                 android:text="@string/text_acesse"
-                android:textSize="32sp"
-                android:textStyle="bold"
                 android:textColor="@color/madeira_fundo"
-                android:gravity="center" />
+                android:textSize="32sp"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/text_entrar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:id="@+id/text_entrar"
                 android:fontFamily="sans-serif"
                 android:text="@string/text_entrar"
                 android:textColor="@color/madeira_escura"
                 android:textSize="18sp"
-                android:textStyle="normal"/>
+                android:textStyle="normal" />
+
 
             <TextView
+                android:id="@+id/text_dig_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:id="@+id/text_dig_email"
                 android:fontFamily="sans-serif"
                 android:text="@string/text_digi_email"
                 android:textColor="@color/madeira_escura"
                 android:textSize="18sp"
-                android:textStyle="normal"/>
+                android:textStyle="normal" />
 
             <EditText
+                android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:id="@+id/input_email"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/custom_input"
                 android:drawableStart="@drawable/custom_email_ic"
@@ -80,25 +81,26 @@
                 android:inputType="textEmailAddress"
                 android:minHeight="48dp"
                 android:paddingStart="12dp"
-                android:textColorHint="@color/hint"
                 android:paddingEnd="12dp"
                 android:textColor="@color/madeira_escura"
-                />
+                android:textColorHint="@color/hint" />
+
             <TextView
+                android:id="@+id/text_dig_senha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:id="@+id/text_dig_senha"
                 android:fontFamily="sans-serif"
                 android:text="@string/text_digi_senha"
                 android:textColor="@color/madeira_escura"
                 android:textSize="18sp"
-                android:textStyle="normal"/>
+                android:textStyle="normal" />
+
             <EditText
+                android:id="@+id/input_senha"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginTop="4dp"
-                android:id="@+id/input_senha"
                 android:background="@drawable/custom_input"
                 android:drawableStart="@drawable/custom_senha_ic"
                 android:drawablePadding="12dp"
@@ -110,41 +112,52 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:textColor="@color/madeira_escura"
-                android:textColorHint="@color/hint"
-                />
+                android:textColorHint="@color/hint" />
+
+            <TextView
+                android:id="@+id/text_avisos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/aviso"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="44dp">
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/bt_entrar"
                     android:layout_width="0dp"
                     android:layout_height="64dp"
-                    android:layout_weight="1"
                     android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
                     android:background="@drawable/custom_button"
                     android:fontFamily="sans-serif-black"
                     android:shadowRadius="20"
                     android:text="Entrar"
-                    android:textColor="@color/white"
                     android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:textSize="20dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/bt_cadastrar"
                     android:layout_width="0dp"
                     android:layout_height="64dp"
-                    android:layout_weight="1"
                     android:layout_marginStart="5dp"
+                    android:layout_weight="1"
                     android:background="@drawable/custom_button"
                     android:fontFamily="sans-serif-black"
-                    android:textColor="@color/white"
                     android:shadowRadius="20"
                     android:text="Cadastrar"
                     android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -159,7 +172,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:src="@drawable/icon_app"/>
+        android:src="@drawable/icon_app" />
 
 </LinearLayout>
 
