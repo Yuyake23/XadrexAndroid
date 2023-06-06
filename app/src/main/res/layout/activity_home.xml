@@ -19,23 +19,14 @@
             android:textSize="22sp"
             android:text="Usuario"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="64dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="57dp"
-            android:layout_weight="1"
-            android:background="@drawable/custom_button"
-            android:fontFamily="sans-serif-black"
-            android:shadowRadius="20"
-            android:text="Logout"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/logout"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/logout"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
 
@@ -46,12 +37,21 @@
         android:layout_above="@id/bottomNavigation"
         android:visibility="visible">
 
-        <TextView
+        <Button
+            android:id="@+id/iniciar_jogo"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textSize="22sp"
-            android:text="Jogar"/>
+            android:fontFamily="sans-serif-black"
+            android:padding="12dp"
+            android:text="Jogar"
+            android:textColor="@color/madeira_bege"
+            android:textSize="20sp"
+            app:elevation="5dp"
+            app:icon="@drawable/play"
+            app:strokeWidth="4dp" />
+
 
     </RelativeLayout>
 
@@ -81,9 +81,9 @@
         app:mbn_backgroundBottomColor="@color/madeira_escura"
         app:mbn_countBackgroundColor="@color/madeira_bege"
         app:mbn_countTextColor="#ffffff"
-        app:mbn_defaultIconColor="#90a4ae"
-        app:mbn_rippleColor="#2f424242"
-        app:mbn_selectedIconColor="#3c415e"
+        app:mbn_defaultIconColor="@color/madeira_bege"
+        app:mbn_rippleColor="@color/madeira_fundo"
+        app:mbn_selectedIconColor="@color/madeira_escura"
         app:mbn_shadowColor="#1f594336"
         android:layout_alignParentBottom="true"
         />

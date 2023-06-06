@@ -53,87 +53,125 @@
                 android:textSize="18sp"
                 android:textStyle="normal" />
 
-            <EditText
-                android:id="@+id/input_usuario"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/custom_input"
-                android:drawableStart="@drawable/custom_usuario_ic"
-                android:drawablePadding="12dp"
-                android:ems="15"
-                android:fontFamily="sans-serif"
-                android:hint="Usuário"
-                android:inputType="text"
-                android:minHeight="48dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:textColor="@color/madeira_escura"
-                android:textColorHint="@color/hint" />
-
-            <EditText
-                android:id="@+id/input_email"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginTop="18dp"
-                android:background="@drawable/custom_input"
-                android:drawableStart="@drawable/custom_email_ic"
-                android:drawablePadding="12dp"
-                android:ems="15"
-                android:fontFamily="sans-serif"
-                android:hint="E-mail"
-                android:inputType="textEmailAddress"
-                android:minHeight="48dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:textColor="@color/madeira_escura"
-                android:textColorHint="@color/hint" />
-
-            <EditText
-                android:id="@+id/input_senha"
+                app:startIconDrawable="@drawable/custom_usuario_ic"
+                app:startIconTint="@color/madeira_bege"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconTint="@color/madeira_bege"
+                app:hintTextColor="@color/hint"
+                android:textColorHint="@color/hint">
+                <EditText
+                    android:id="@+id/input_usuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/custom_email_ic"
+                    android:drawablePadding="12dp"
+                    android:ems="15"
+                    android:fontFamily="sans-serif"
+                    android:hint="Usuario"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:textColor="@color/madeira_escura" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginTop="18dp"
-                android:background="@drawable/custom_input"
-                android:drawableStart="@drawable/custom_senha_ic"
-                android:drawablePadding="12dp"
-                android:ems="15"
-                android:fontFamily="sans-serif"
-                android:hint="Senha"
-                android:inputType="textPassword"
-                android:minHeight="48dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:textColor="@color/madeira_escura"
-                android:textColorHint="@color/hint" />
+                app:startIconDrawable="@drawable/custom_email_ic"
+                app:startIconTint="@color/madeira_bege"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconTint="@color/madeira_bege"
+                app:hintTextColor="@color/hint"
+                android:textColorHint="@color/hint">
+                <EditText
+                    android:id="@+id/input_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/custom_email_ic"
+                    android:drawablePadding="12dp"
+                    android:ems="15"
+                    android:fontFamily="sans-serif"
+                    android:hint="E-mail"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="48dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:textColor="@color/madeira_escura" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/input_rep_senha"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginTop="18dp"
-                android:background="@drawable/custom_input"
-                android:drawableStart="@drawable/custom_senha_ic"
-                android:drawablePadding="12dp"
-                android:ems="15"
-                android:fontFamily="sans-serif"
-                android:hint="Confirme a senha"
-                android:inputType="textPassword"
-                android:minHeight="48dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:textColor="@color/madeira_escura"
-                android:textColorHint="@color/hint" />
+                app:passwordToggleEnabled="true"
+                app:startIconDrawable="@drawable/custom_senha_ic"
+                app:startIconTint="@color/madeira_bege"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconTint="@color/madeira_bege"
+                app:hintTextColor="@color/hint"
+                android:textColorHint="@color/hint">
+
+                <EditText
+                    android:id="@+id/input_senha"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/custom_input"
+                    android:drawablePadding="12dp"
+                    android:ems="15"
+                    android:fontFamily="sans-serif"
+                    android:hint="Senha"
+                    android:inputType="textPassword"
+                    android:minHeight="48dp"
+                    android:textColor="@color/madeira_escura"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="18dp"
+                app:passwordToggleEnabled="true"
+                app:startIconDrawable="@drawable/custom_senha_ic"
+                app:startIconTint="@color/madeira_bege"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconTint="@color/madeira_bege"
+                app:hintTextColor="@color/hint"
+                android:textColorHint="@color/hint">
+                <EditText
+                    android:id="@+id/input_rep_senha"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/custom_input"
+                    android:drawablePadding="12dp"
+                    android:ems="15"
+                    android:fontFamily="sans-serif"
+                    android:hint="Confirme a senha"
+                    android:inputType="textPassword"
+                    android:minHeight="48dp"
+                    android:textColor="@color/madeira_escura"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/text_avisos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:fontFamily="sans-serif"
+                android:fontFamily="sans-serif-black"
+                android:textStyle="bold"
                 android:textColor="@color/aviso"
-                android:textSize="18sp"
-                android:textStyle="normal" />
+                android:textSize="18sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_cadastrar"
