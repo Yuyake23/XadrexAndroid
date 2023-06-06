@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameActivity"
+    android:elevation="10dp">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:columnCount="8"
+        android:rowCount="8"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos00"
+            style="@style/ChessLight"
+            app:srcCompat="@drawable/rei" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos01"
+            style="@style/ChessBlack"
+            app:srcCompat="@drawable/rei" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos02"
+            style="@style/ChessLight"
+            app:srcCompat="@drawable/rei1" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos03"
+            style="@style/ChessBlack"
+            app:srcCompat="@drawable/rei1" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos04"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos05"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos06"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos07"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos10"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos11"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos12"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos13"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos14"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos15"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos16"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos17"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos20"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos21"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos22"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos23"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos24"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos25"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos26"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos27"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos30"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos31"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos32"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos33"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos34"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos35"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos36"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos37"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos40"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos41"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos42"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos43"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos44"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos45"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos46"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos47"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos50"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos51"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos52"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos53"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos54"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos55"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos56"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos57"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos60"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos61"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos62"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos63"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos64"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos65"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos66"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos67"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos70"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos71"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos72"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos73"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos74"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos75"
+            style="@style/ChessLight" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos76"
+            style="@style/ChessBlack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/pos77"
+            style="@style/ChessLight" />
+
+
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
