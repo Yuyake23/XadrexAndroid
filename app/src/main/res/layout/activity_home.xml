@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,17 +15,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textSize="22sp"
-            android:text="Usuario"/>
+            android:text="Usuario"
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/logout"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:src="@drawable/logout"
-            android:layout_marginEnd="16dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
-            android:layout_alignParentEnd="true"/>
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/logout" />
 
     </RelativeLayout>
 
@@ -42,7 +41,9 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
             android:fontFamily="sans-serif-black"
             android:padding="12dp"
             android:text="Jogar"
@@ -52,6 +53,13 @@
             app:icon="@drawable/play"
             app:strokeWidth="4dp" />
 
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/boardFragment"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
 
     </RelativeLayout>
 
@@ -66,26 +74,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textSize="22sp"
-            android:text="Creditos"/>
+            android:text="Creditos"
+            android:textSize="22sp" />
 
     </RelativeLayout>
-
 
 
     <com.etebarian.meowbottomnavigation.MeowBottomNavigation
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mbn_circleColor="@color/madeira_bege"
+        android:layout_alignParentBottom="true"
         app:mbn_backgroundBottomColor="@color/madeira_escura"
+        app:mbn_circleColor="@color/madeira_bege"
         app:mbn_countBackgroundColor="@color/madeira_bege"
         app:mbn_countTextColor="#ffffff"
         app:mbn_defaultIconColor="@color/madeira_bege"
         app:mbn_rippleColor="@color/madeira_fundo"
         app:mbn_selectedIconColor="@color/madeira_escura"
-        app:mbn_shadowColor="#1f594336"
-        android:layout_alignParentBottom="true"
-        />
+        app:mbn_shadowColor="#1f594336" />
 
 </RelativeLayout>

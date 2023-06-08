@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameActivity"
-    android:elevation="10dp">
+    android:elevation="10dp"
+    tools:context=".GameActivity">
 
     <GridLayout
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="400dp"
         android:columnCount="8"
         android:rowCount="8"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos00"
@@ -25,87 +25,81 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos01"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/knight"
-            android:elevation="10dp"
-             />
+            app:srcCompat="@drawable/knight" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos02"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/bispo"
-             />
+            app:srcCompat="@drawable/bishop" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos03"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/queen"
-             />
+            app:srcCompat="@drawable/queen" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos04"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/king"/>
+            app:srcCompat="@drawable/king" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos05"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/bispo"/>
+            app:srcCompat="@drawable/bishop" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos06"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/knight"/>
+            app:srcCompat="@drawable/knight" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos07"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/hook"/>
+            app:srcCompat="@drawable/hook" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos10"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/pawn"
-            />
+            app:srcCompat="@drawable/pawn" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos11"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/pawn"/>
+            app:srcCompat="@drawable/pawn" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos12"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/pawn"/>
+            app:srcCompat="@drawable/pawn" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos13"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/pawn"/>
+            app:srcCompat="@drawable/pawn" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos14"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/pawn"/>
+            app:srcCompat="@drawable/pawn" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos15"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/pawn"/>
+            app:srcCompat="@drawable/pawn" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos16"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/pawn"/>
+            app:srcCompat="@drawable/pawn" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos17"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/pawn"/>
+            app:srcCompat="@drawable/pawn" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos20"
-            style="@style/ChessLight"
-            />
+            style="@style/ChessLight" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos21"
@@ -234,82 +228,82 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos60"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/pawn1"/>
+            app:srcCompat="@drawable/pawn1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos61"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/pawn1"/>
+            app:srcCompat="@drawable/pawn1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos62"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/pawn1"/>
+            app:srcCompat="@drawable/pawn1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos63"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/pawn1"/>
+            app:srcCompat="@drawable/pawn1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos64"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/pawn1"/>
+            app:srcCompat="@drawable/pawn1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos65"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/pawn1"/>
+            app:srcCompat="@drawable/pawn1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos66"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/pawn1"/>
+            app:srcCompat="@drawable/pawn1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos67"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/pawn1"/>
+            app:srcCompat="@drawable/pawn1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos70"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/hook1"/>
+            app:srcCompat="@drawable/hook1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos71"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/knight1"/>
+            app:srcCompat="@drawable/knight1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos72"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/bispo1"/>
+            app:srcCompat="@drawable/bishop1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos73"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/queen1"/>
+            app:srcCompat="@drawable/queen1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos74"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/king1"/>
+            app:srcCompat="@drawable/king1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos75"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/bispo1"/>
+            app:srcCompat="@drawable/bishop1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos76"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/knight1"/>
+            app:srcCompat="@drawable/knight1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos77"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/hook1"/>
+            app:srcCompat="@drawable/hook1" />
 
 
     </GridLayout>
