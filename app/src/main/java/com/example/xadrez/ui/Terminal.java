@@ -1,8 +1,9 @@
 package com.example.xadrez.ui;
 
-import com.bruno.xadrez.chess.ChessMatch;
-import com.bruno.xadrez.chess.ChessPiece;
-import com.bruno.xadrez.chess.Color;
+
+import com.example.xadrez.chess.ChessMatch;
+import com.example.xadrez.chess.ChessPiece;
+import com.example.xadrez.chess.Color;
 
 import java.util.List;
 

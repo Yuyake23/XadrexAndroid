@@ -1,15 +1,16 @@
 package com.example.xadrez.chess;
 
-import com.bruno.xadrez.boardgame.Board;
-import com.bruno.xadrez.boardgame.Piece;
-import com.bruno.xadrez.boardgame.Position;
-import com.bruno.xadrez.chess.pieces.Bishop;
-import com.bruno.xadrez.chess.pieces.King;
-import com.bruno.xadrez.chess.pieces.Knight;
-import com.bruno.xadrez.chess.pieces.Pawn;
-import com.bruno.xadrez.chess.pieces.PieceType;
-import com.bruno.xadrez.chess.pieces.Queen;
-import com.bruno.xadrez.chess.pieces.Rook;
+
+import com.example.xadrez.boardgame.Board;
+import com.example.xadrez.boardgame.Piece;
+import com.example.xadrez.boardgame.Position;
+import com.example.xadrez.chess.pieces.Bishop;
+import com.example.xadrez.chess.pieces.King;
+import com.example.xadrez.chess.pieces.Knight;
+import com.example.xadrez.chess.pieces.Pawn;
+import com.example.xadrez.chess.pieces.PieceType;
+import com.example.xadrez.chess.pieces.Queen;
+import com.example.xadrez.chess.pieces.Rook;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
@@ -306,7 +307,7 @@ public class ChessMatch implements Serializable, Cloneable {
         return color == Color.WHITE ? Color.BLACK : Color.WHITE;
     }
 
-    private King king(Color color) {
+    public King king(Color color) {
         for (Piece piece : this.piecesOnTheBoard) {
             if (((ChessPiece) piece).getColor() == color && piece instanceof King) {
                 return (King) piece;

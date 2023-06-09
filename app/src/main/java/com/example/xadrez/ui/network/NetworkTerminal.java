@@ -1,10 +1,11 @@
 package com.example.xadrez.ui.network;
 
-import com.bruno.xadrez.chess.ChessMatch;
-import com.bruno.xadrez.chess.ChessPiece;
-import com.bruno.xadrez.chess.Color;
-import com.bruno.xadrez.ui.Terminal;
-import com.bruno.xadrez.ui.network.enums.Description;
+
+import com.example.xadrez.chess.ChessMatch;
+import com.example.xadrez.chess.ChessPiece;
+import com.example.xadrez.chess.Color;
+import com.example.xadrez.ui.Terminal;
+import com.example.xadrez.ui.network.enums.Description;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

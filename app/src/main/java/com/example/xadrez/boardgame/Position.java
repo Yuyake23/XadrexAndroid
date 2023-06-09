@@ -44,4 +44,7 @@ public class Position implements Serializable {
         return row + ", " + column;
     }
 
+    public boolean isIn(int row, int column) {
+        return this.row == row && this.column == column;
+    }
 }

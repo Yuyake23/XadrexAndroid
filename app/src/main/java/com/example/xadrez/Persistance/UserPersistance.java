@@ -1,7 +1,7 @@
 package com.example.xadrez.Persistance;
 
 
-import com.bruno.xadrez.dto.User;
+import com.example.xadrez.dto.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;

@@ -1,8 +1,9 @@
 package com.example.xadrez.chess;
 
-import com.bruno.xadrez.boardgame.Board;
-import com.bruno.xadrez.boardgame.Piece;
-import com.bruno.xadrez.boardgame.Position;
+
+import com.example.xadrez.boardgame.Board;
+import com.example.xadrez.boardgame.Piece;
+import com.example.xadrez.boardgame.Position;
 
 public abstract class ChessPiece extends Piece {
 	private static final long serialVersionUID = 692329559904442530L;

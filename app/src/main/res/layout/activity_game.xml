@@ -20,7 +20,7 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos00"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/hook" />
+            app:srcCompat="@drawable/rook" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos01"
@@ -55,7 +55,7 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos07"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/hook" />
+            app:srcCompat="@drawable/rook" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos10"
@@ -268,7 +268,7 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos70"
             style="@style/ChessBlack"
-            app:srcCompat="@drawable/hook1" />
+            app:srcCompat="@drawable/rook1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos71"
@@ -303,7 +303,7 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/pos77"
             style="@style/ChessLight"
-            app:srcCompat="@drawable/hook1" />
+            app:srcCompat="@drawable/rook1" />
 
 
     </GridLayout>

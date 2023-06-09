@@ -1,11 +1,11 @@
 package com.example.xadrez.chess.pieces;
 
 
-import com.bruno.xadrez.boardgame.Board;
-import com.bruno.xadrez.boardgame.Position;
-import com.bruno.xadrez.chess.ChessMatch;
-import com.bruno.xadrez.chess.ChessPiece;
-import com.bruno.xadrez.chess.Color;
+import com.example.xadrez.boardgame.Board;
+import com.example.xadrez.boardgame.Position;
+import com.example.xadrez.chess.ChessMatch;
+import com.example.xadrez.chess.ChessPiece;
+import com.example.xadrez.chess.Color;
 
 public class Rook extends ChessPiece {
 	private static final long serialVersionUID = 2737208292316407438L;

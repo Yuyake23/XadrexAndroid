@@ -1,7 +1,7 @@
 package com.example.xadrez.chess;
 
 
-import com.bruno.xadrez.boardgame.BoardException;
+import com.example.xadrez.boardgame.BoardException;
 
 public class ChessException extends BoardException {
 
