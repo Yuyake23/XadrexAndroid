@@ -1,11 +1,13 @@
 package com.example.xadrez;
 
+import android.app.Dialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
@@ -17,8 +19,10 @@ import com.example.xadrez.chess.ChessMatch;
 import com.example.xadrez.chess.ChessPiece;
 import com.example.xadrez.chess.ChessPosition;
 import com.example.xadrez.chess.Color;
+import com.example.xadrez.chess.Move;
 import com.example.xadrez.chess.pieces.PieceType;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -83,7 +87,7 @@ public class BoardFragment extends Fragment {
                 this.updateView(chessMatch.possibleMovies(sourcePosition));
             } else if (targetPosition == null) {
                 targetPosition = ChessPosition.fromPosition(new Position(i, j));
-                this.chessMatch.performChessMove(sourcePosition, targetPosition, null);
+                this.chessMatch.performChessMove(sourcePosition, targetPosition, PieceType.QUEEN);
                 sourcePosition = targetPosition = null;
                 this.updateView(null);
             }
@@ -93,8 +97,13 @@ public class BoardFragment extends Fragment {
             updateView(null);
         }
 
-        if (chessMatch.matchIsOver()) {
-//         TODO: . . .
+        if (true || chessMatch.matchIsOver()) {
+            Dialog dialog = new Dialog(getContext());
+            dialog.setContentView(R.layout.end_mach);
+            TextView textMensagem = dialog.findViewById(R.id.mensagem_fim_partida);
+            String mensagem = chessMatch.getWinner() == Color.WHITE ? "O branco ganhou!!!" : "O preto ganhou!!!";
+            textMensagem.setText(mensagem);
+            dialog.show();
         }
 
     }
@@ -123,13 +132,17 @@ public class BoardFragment extends Fragment {
 
             }
         }
-        if(chessMatch.getCheck()){
+
+        if (chessMatch.getCheck()) {
             Position position = chessMatch.king(chessMatch.getCurrentPlayer()).getPosition();
             // TODO: Colocar efeito do rei em check
             this.pieces[position.getRow()][position.getColumn()].setBackgroundDrawable(
                     ContextCompat.getDrawable(requireContext(), R.color.teal_200)
             );
         }
+
+        // TODO: Caso queira fazer algo com as peças capturadas:
+//        this.chessMatch.getCapturedPieces(). . .
     }
 
     private void finalizarPartida() {
@@ -206,5 +219,9 @@ public class BoardFragment extends Fragment {
 
 
         updateView(null);
+    }
+
+    public List<Move> getMoves() {
+        return chessMatch.getMoveDeque();
     }
 }

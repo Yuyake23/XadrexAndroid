@@ -13,9 +13,7 @@ import com.example.xadrez.chess.pieces.Queen;
 import com.example.xadrez.chess.pieces.Rook;
 
 import java.io.Serializable;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +38,7 @@ public class ChessMatch implements Serializable, Cloneable {
 
     private final List<Piece> piecesOnTheBoard = new ArrayList<>();
     private final List<Piece> capturedPieces = new ArrayList<>();
-    private final Deque<Move> moveDeque = new ArrayDeque<>();
+    private final List<Move> moveDeque = new ArrayList<>();
 
     public ChessMatch(OnNeedPieceTypeToPromotion onNeedPieceTypeToPromotion) {
         this.onNeedPieceTypeToPromotion = onNeedPieceTypeToPromotion;
@@ -79,7 +77,7 @@ public class ChessMatch implements Serializable, Cloneable {
         return enPassantVulnerable;
     }
 
-    public Deque<Move> getMoveDeque() {
+    public List<Move> getMoveDeque() {
         return this.moveDeque;
     }
 
@@ -384,6 +382,10 @@ public class ChessMatch implements Serializable, Cloneable {
 
     public Color getWinner() {
         return currentPlayerColor;
+    }
+
+    public List<Piece> getCapturedPieces() {
+        return capturedPieces;
     }
 
     private void initialSetup() {

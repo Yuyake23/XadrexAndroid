@@ -4,19 +4,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.xadrez.dto.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class CadastroActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
+    private FirebaseFirestore db;
 
     private EditText etUsuario;
     private EditText etEmail;
@@ -31,6 +39,7 @@ public class CadastroActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         this.auth = FirebaseAuth.getInstance();
+        this.db = FirebaseFirestore.getInstance();
 
         this.etUsuario = findViewById(R.id.input_usuario);
         this.etEmail = findViewById(R.id.input_email);
@@ -47,11 +56,11 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     private void onClickCadastrar(View v) {
-        String usuario = this.etUsuario.getText().toString();
+        String username = this.etUsuario.getText().toString();
         String email = this.etEmail.getText().toString();
         String senha = this.etSenha.getText().toString();
         String senhaConfirma = this.etSenhaConfirma.getText().toString();
-        if (usuario.isEmpty()) {
+        if (username.isEmpty()) {
             this.tvAvisos.setText("Digite o nome de usuário");
             return;
         } else if (email.isEmpty()) {
@@ -72,8 +81,24 @@ public class CadastroActivity extends AppCompatActivity {
 
         this.auth.createUserWithEmailAndPassword(email, senha)
                 .addOnSuccessListener(authResult -> {
+                    Log.d("fireauth", "Usuario cadastrado");
+
+                    CollectionReference userCollection = db.collection("users");
+
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("id", authResult.getUser().getUid());
+                    user.put("email", email);
+                    user.put("username", username);
+
+                    userCollection.add(user);
+
                     Intent intent = new Intent(CadastroActivity.this, HomeActivity.class);
                     startActivity(intent);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("fireauth", "Falha ao cadastra usuario", e);
                 });
+
+
     }
 }
