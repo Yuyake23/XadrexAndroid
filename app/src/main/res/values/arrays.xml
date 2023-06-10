@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="piece_type_array">
+        <item>Bispo</item>
+        <item>Cavalo</item>
+        <item>Rainha</item>
+        <item>Torre</item>
+    </string-array>
+
+</resources>

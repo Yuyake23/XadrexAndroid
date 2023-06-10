@@ -2,24 +2,29 @@ package com.example.xadrez;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.example.xadrez.chess.ChessMatch;
 import com.example.xadrez.chess.Move;
+import com.example.xadrez.chess.pieces.PieceType;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -29,7 +34,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicReference;
 
 import kotlin.Unit;
 
@@ -64,6 +71,7 @@ public class HomeActivity extends AppCompatActivity {
         this.jogar = findViewById(R.id.jogar);
         this.creditos = findViewById(R.id.creditos);
         this.btSalvar = jogar.findViewById(R.id.salvar_jogo);
+        this.btReiniciar = jogar.findViewById(R.id.reiniciar_jogo);
 
         this.configureFragment();
 
@@ -81,11 +89,11 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigation.show(2, true);
         bottomNavigation.setOnClickMenuListener(this::mudarConteudo);
 
-        btSalvar.setOnClickListener(this::saveMatch);
-
+        btSalvar.setOnClickListener(v -> saveMatch());
+        btReiniciar.setOnClickListener(v -> configureFragment());
     }
 
-    private void saveMatch(View v) {
+    private void saveMatch() {
         List<Move> moves = board.getMoves();
         List<Map<String, Object>> moveList = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
@@ -97,9 +105,14 @@ public class HomeActivity extends AppCompatActivity {
         map.put("playerId", auth.getCurrentUser().getUid());
         map.put("moveList", moveList);
         map.put("timestamp", new Timestamp(new Date()));
+        map.put("winner", board.getChessMatch().matchIsOver() ? board.getChessMatch().getWinner() : null);
 
         CollectionReference matches = db.collection("matches");
-        matches.add(map);
+        matches.add(map).addOnCompleteListener(task -> {
+            Toast.makeText(this, task.isSuccessful() ? "Partida salva" :
+                    "Não foi possível salvar a partida", Toast.LENGTH_SHORT).show();
+        });
+
 
     }
 
@@ -141,8 +154,9 @@ public class HomeActivity extends AppCompatActivity {
     private void configureFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        this.board = new BoardFragment();
+        this.board = new BoardFragment(this::saveMatch);
         fragmentTransaction.add(R.id.boardFragment, this.board);
         fragmentTransaction.commit();
     }
+
 }

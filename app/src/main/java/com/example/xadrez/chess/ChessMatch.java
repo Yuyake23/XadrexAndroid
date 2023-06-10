@@ -1,6 +1,8 @@
 package com.example.xadrez.chess;
 
 
+import android.util.Log;
+
 import com.example.xadrez.boardgame.Board;
 import com.example.xadrez.boardgame.Piece;
 import com.example.xadrez.boardgame.Position;
@@ -15,17 +17,15 @@ import com.example.xadrez.chess.pieces.Rook;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class ChessMatch implements Serializable, Cloneable {
     private static final long serialVersionUID = 2272696391384483565L;
-
-    @FunctionalInterface
-    public interface OnNeedPieceTypeToPromotion {
-        String chosePieceTypeToPromotion();
-    }
-
-    private final OnNeedPieceTypeToPromotion onNeedPieceTypeToPromotion;
 
     private final Board board;
     private int turn;
@@ -40,9 +40,7 @@ public class ChessMatch implements Serializable, Cloneable {
     private final List<Piece> capturedPieces = new ArrayList<>();
     private final List<Move> moveDeque = new ArrayList<>();
 
-    public ChessMatch(OnNeedPieceTypeToPromotion onNeedPieceTypeToPromotion) {
-        this.onNeedPieceTypeToPromotion = onNeedPieceTypeToPromotion;
-
+    public ChessMatch() {
         this.board = new Board(8, 8);
         this.turn = 1;
         this.currentPlayerColor = Color.WHITE;
@@ -139,8 +137,9 @@ public class ChessMatch implements Serializable, Cloneable {
         if (movedPiece instanceof Pawn) {
             Pawn pawn = (Pawn) movedPiece;
             if (target.getRow() == 0 || target.getRow() == 7) {
-                while (pieceTypeToPromote == null) {
-                    pieceTypeToPromote = PieceType.pieceTypeByChar(onNeedPieceTypeToPromotion.chosePieceTypeToPromotion()); // I don´t like it
+                if (pieceTypeToPromote == null) {
+                    undoMove(source, target, capturedPiece);
+                    throw new NonePieceToPromoteWasGiven("");
                 }
                 try {
                     movedPiece = replacePromotedPiece(movedPiece, pieceTypeToPromote);

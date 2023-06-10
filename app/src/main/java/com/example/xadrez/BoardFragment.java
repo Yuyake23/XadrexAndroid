@@ -3,12 +3,14 @@ package com.example.xadrez;
 import android.app.Dialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -20,13 +22,25 @@ import com.example.xadrez.chess.ChessPiece;
 import com.example.xadrez.chess.ChessPosition;
 import com.example.xadrez.chess.Color;
 import com.example.xadrez.chess.Move;
+import com.example.xadrez.chess.NonePieceToPromoteWasGiven;
 import com.example.xadrez.chess.pieces.PieceType;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Supplier;
 
 
 public class BoardFragment extends Fragment {
+    @FunctionalInterface
+    public interface Do {
+        void run();
+    }
+
+    private Do doWhenFinish;
 
     private Drawable blackBg;
     private Drawable whiteBg;
@@ -46,10 +60,14 @@ public class BoardFragment extends Fragment {
     private Drawable whitePawn;
 
     private final AppCompatImageButton[][] pieces = new AppCompatImageButton[8][8];
-    private ChessMatch chessMatch = new ChessMatch(this::chosePieceTypeToPromotion);
+    private ChessMatch chessMatch = new ChessMatch();
 
     private ChessPosition sourcePosition;
     private ChessPosition targetPosition;
+
+    public BoardFragment(Do doWhenFinish) {
+        this.doWhenFinish = doWhenFinish;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,11 +75,9 @@ public class BoardFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_board, container, false);
         GridLayout gridLayout = rootView.findViewById(R.id.boardGrid);
-
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -87,7 +103,11 @@ public class BoardFragment extends Fragment {
                 this.updateView(chessMatch.possibleMovies(sourcePosition));
             } else if (targetPosition == null) {
                 targetPosition = ChessPosition.fromPosition(new Position(i, j));
-                this.chessMatch.performChessMove(sourcePosition, targetPosition, PieceType.QUEEN);
+                try {
+                    this.chessMatch.performChessMove(sourcePosition, targetPosition, null);
+                } catch (NonePieceToPromoteWasGiven e) {
+                    onNeedPieceToPromote(sourcePosition, targetPosition);
+                }
                 sourcePosition = targetPosition = null;
                 this.updateView(null);
             }
@@ -97,14 +117,37 @@ public class BoardFragment extends Fragment {
             updateView(null);
         }
 
-        if (true || chessMatch.matchIsOver()) {
-            Dialog dialog = new Dialog(getContext());
-            dialog.setContentView(R.layout.end_mach);
-            TextView textMensagem = dialog.findViewById(R.id.mensagem_fim_partida);
-            String mensagem = chessMatch.getWinner() == Color.WHITE ? "O branco ganhou!!!" : "O preto ganhou!!!";
-            textMensagem.setText(mensagem);
-            dialog.show();
+        if (chessMatch.matchIsOver()) {
+            finalizarPartida();
         }
+
+    }
+
+    private void onNeedPieceToPromote(ChessPosition source, ChessPosition target) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setTitle("Escolha uma peça")
+                .setItems(R.array.piece_type_array, (dialog, which) -> {
+                    PieceType pieceType = null;
+                    switch (which) {
+                        case 0:
+                            pieceType = PieceType.BISHOP;
+                            break;
+                        case 1:
+                            pieceType = PieceType.KNIGHT;
+                            break;
+                        case 2:
+                            pieceType = PieceType.QUEEN;
+                            break;
+                        case 3:
+                            pieceType = PieceType.ROOK;
+                            break;
+                    }
+                    chessMatch.performChessMove(source, target, pieceType);
+                    updateView(null);
+                });
+
+        builder.create().show();
 
     }
 
@@ -119,13 +162,11 @@ public class BoardFragment extends Fragment {
 //                    Aqui são os lugares no qual uma peça pode se mover
 //                    Não aloque os recurso da forma abaixo, assim vai precisar carregar toda hora
 //                    Olha como ta sendo feito em configureSetup()
-                    this.pieces[i][j].setBackgroundDrawable(
-                            ContextCompat.getDrawable(requireContext(), R.color.purple_700));
+                    this.pieces[i][j].setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.color.purple_700));
                 } else if (sourcePosition != null && sourcePosition.toPosition().isIn(i, j)) {
 //                    TODO: Colocar efeito de fundo
 //                    Aqui é a peça selecionada para mover
-                    this.pieces[i][j].setBackgroundDrawable(
-                            ContextCompat.getDrawable(requireContext(), R.color.purple_200));
+                    this.pieces[i][j].setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.color.purple_200));
                 } else {
                     this.pieces[i][j].setBackgroundDrawable((i % 2 == j % 2) ? whiteBg : blackBg);
                 }
@@ -136,9 +177,7 @@ public class BoardFragment extends Fragment {
         if (chessMatch.getCheck()) {
             Position position = chessMatch.king(chessMatch.getCurrentPlayer()).getPosition();
             // TODO: Colocar efeito do rei em check
-            this.pieces[position.getRow()][position.getColumn()].setBackgroundDrawable(
-                    ContextCompat.getDrawable(requireContext(), R.color.teal_200)
-            );
+            this.pieces[position.getRow()][position.getColumn()].setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.color.teal_200));
         }
 
         // TODO: Caso queira fazer algo com as peças capturadas:
@@ -146,17 +185,26 @@ public class BoardFragment extends Fragment {
     }
 
     private void finalizarPartida() {
-        salvarLog();
-        // TODO: . . .
-    }
+        // Mostrar Dialog na tela
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.end_mach);
+        TextView textMensagem = dialog.findViewById(R.id.mensagem_fim_partida);
+        String mensagem = chessMatch.getWinner() == Color.WHITE ? "O branco ganhou!!!" : "O preto ganhou!!!";
+        textMensagem.setText(mensagem);
+        dialog.show();
 
-    private void salvarLog() {
-        // TODO: . . .
+        // Bloquear movimentação
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                this.pieces[i][j].setClickable(false);
+            }
+        }
+
+        doWhenFinish.run();
     }
 
     private Drawable selectPieceDrawable(ChessPiece piece) {
-        if (piece == null)
-            return null;
+        if (piece == null) return null;
         PieceType pieceType = PieceType.pieceTypeByChar(piece.toString());
 
         if (piece.getColor() == Color.WHITE) {
@@ -194,11 +242,6 @@ public class BoardFragment extends Fragment {
         return null;
     }
 
-    private String chosePieceTypeToPromotion() {
-        // TODO: Abrir janela para o usuário escolher a peça a ser promovida
-        return null;
-    }
-
     private void configureSetup() {
         blackBg = ContextCompat.getDrawable(requireContext(), R.color.madeira_fundo);
         whiteBg = ContextCompat.getDrawable(requireContext(), R.color.madeira_bege);
@@ -223,5 +266,9 @@ public class BoardFragment extends Fragment {
 
     public List<Move> getMoves() {
         return chessMatch.getMoveDeque();
+    }
+
+    public ChessMatch getChessMatch() {
+        return chessMatch;
     }
 }
