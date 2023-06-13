@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -17,27 +16,18 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-import com.example.xadrez.chess.ChessMatch;
 import com.example.xadrez.chess.Move;
-import com.example.xadrez.chess.pieces.PieceType;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,9 +35,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicReference;
 
 import kotlin.Unit;
 
@@ -72,7 +59,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-
         this.db = FirebaseFirestore.getInstance();
         this.auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() == null) {
@@ -93,25 +79,29 @@ public class HomeActivity extends AppCompatActivity {
         this.emailuser = findViewById(R.id.emailuser);
         this.partida = findViewById(R.id.partida);
 
-        user.setText(auth.getCurrentUser().getUid());
+        db.collection("users").whereEqualTo("id", auth.getCurrentUser().getUid())
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            user.setText((CharSequence) document.getData().get("username"));
+                        }
+                    } else {
+                        Log.d("database", "Error getting documents: ", task.getException());
+                    }
+                });
+
         emailuser.setText(auth.getCurrentUser().getEmail());
-        samuelgit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri uri = Uri.parse("https://github.com/SamuelSilvaPDR");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
+        samuelgit.setOnClickListener(v -> {
+            Uri uri = Uri.parse("https://github.com/SamuelSilvaPDR");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         });
 
 
-        yuyake.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri uri = Uri.parse("https://github.com/Yuyake23");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
+        yuyake.setOnClickListener(v -> {
+            Uri uri = Uri.parse("https://github.com/Yuyake23");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         });
 
         this.configureFragment();
@@ -198,6 +188,19 @@ public class HomeActivity extends AppCompatActivity {
         this.board = new BoardFragment(this::saveMatch);
         fragmentTransaction.add(R.id.boardFragment, this.board);
         fragmentTransaction.commit();
+    }
+
+    public void teste() {
+        db.collection("match").whereEqualTo("id", auth.getUid())
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            MatchLog matchLog = document.toObject(MatchLog.class);
+                        }
+                    } else {
+                        Log.d("database", "Error getting documents: ", task.getException());
+                    }
+                });
     }
 
 }
