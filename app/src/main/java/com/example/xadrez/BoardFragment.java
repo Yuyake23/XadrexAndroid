@@ -162,7 +162,7 @@ public class BoardFragment extends Fragment {
 //                    Aqui são os lugares no qual uma peça pode se mover
 //                    Não aloque os recurso da forma abaixo, assim vai precisar carregar toda hora
 //                    Olha como ta sendo feito em configureSetup()
-                    this.pieces[i][j].setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.color.purple_700));
+                    this.pieces[i][j].setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.circle));
                 } else if (sourcePosition != null && sourcePosition.toPosition().isIn(i, j)) {
 //                    TODO: Colocar efeito de fundo
 //                    Aqui é a peça selecionada para mover

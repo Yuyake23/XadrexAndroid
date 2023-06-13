@@ -1,6 +1,8 @@
 package com.example.xadrez;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,15 +21,23 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.xadrez.chess.ChessMatch;
 import com.example.xadrez.chess.Move;
 import com.example.xadrez.chess.pieces.PieceType;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,12 +62,16 @@ public class HomeActivity extends AppCompatActivity {
     private Button btReiniciar;
 
     private BoardFragment board;
+    private TextView samuelgit, yuyake, user, emailuser, partida;
 
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Objects.requireNonNull(getSupportActionBar()).hide();
+
 
         this.db = FirebaseFirestore.getInstance();
         this.auth = FirebaseAuth.getInstance();
@@ -72,6 +87,32 @@ public class HomeActivity extends AppCompatActivity {
         this.creditos = findViewById(R.id.creditos);
         this.btSalvar = jogar.findViewById(R.id.salvar_jogo);
         this.btReiniciar = jogar.findViewById(R.id.reiniciar_jogo);
+        this.samuelgit = findViewById(R.id.samuelpdr);
+        this.yuyake = findViewById(R.id.yuyake);
+        this.user = findViewById(R.id.usuario_atual);
+        this.emailuser = findViewById(R.id.emailuser);
+        this.partida = findViewById(R.id.partida);
+
+        user.setText(auth.getCurrentUser().getUid());
+        emailuser.setText(auth.getCurrentUser().getEmail());
+        samuelgit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://github.com/SamuelSilvaPDR");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+
+        yuyake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://github.com/Yuyake23");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
 
         this.configureFragment();
 
@@ -113,8 +154,8 @@ public class HomeActivity extends AppCompatActivity {
                     "Não foi possível salvar a partida", Toast.LENGTH_SHORT).show();
         });
 
-
     }
+
 
     private Map<String, Object> moveToMap(Move move) {
         Map<String, Object> moveMap = new HashMap<>();

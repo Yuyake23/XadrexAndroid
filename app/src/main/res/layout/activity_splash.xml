@@ -6,6 +6,7 @@
     android:background="@drawable/background">
 
     <ImageView
+        android:id="@+id/xadrez"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/icon_cavalo"
