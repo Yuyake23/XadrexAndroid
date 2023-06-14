@@ -84,6 +84,11 @@ public class HomeActivity extends AppCompatActivity {
         this.logout = findViewById(R.id.logout);
         this.bottomNavigation = findViewById(R.id.bottomNavigation);
 
+        this.bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.custom_usuario_ic));
+        this.bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.play));
+        this.bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.equipe));
+
+
         this.configureFragment();
     }
 
@@ -110,9 +115,6 @@ public class HomeActivity extends AppCompatActivity {
             finish();
         });
 
-        this.bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.custom_usuario_ic));
-        this.bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.play));
-        this.bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.equipe));
         this.bottomNavigation.show(2, true);
         this.bottomNavigation.setOnClickMenuListener(this::mudarConteudo);
 
@@ -170,6 +172,7 @@ public class HomeActivity extends AppCompatActivity {
         moveMap.put("promotedPiece", move.promotedPiece());
         return moveMap;
     }
+
 
     @Nullable
     private Unit mudarConteudo(@NonNull MeowBottomNavigation.Model model) {
