@@ -51,6 +51,9 @@ public class HomeActivity extends AppCompatActivity {
     private BoardFragment board;
     private TextView samuelgit, yuyake, user, emailuser, partida;
 
+    private ImageView logout;
+    private MeowBottomNavigation bottomNavigation;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -59,13 +62,14 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        this.db = FirebaseFirestore.getInstance();
         this.auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
+
+        this.db = FirebaseFirestore.getInstance();
 
         this.subir = AnimationUtils.loadAnimation(this, R.anim.subir);
         this.usuario = findViewById(R.id.usuario);
@@ -78,8 +82,53 @@ public class HomeActivity extends AppCompatActivity {
         this.user = findViewById(R.id.usuario_atual);
         this.emailuser = findViewById(R.id.emailuser);
         this.partida = findViewById(R.id.partida);
+        this.logout = findViewById(R.id.logout);
+        this.bottomNavigation = findViewById(R.id.bottomNavigation);
 
-        db.collection("users").whereEqualTo("id", auth.getCurrentUser().getUid())
+        this.configureFragment();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        this.samuelgit.setOnClickListener(v -> {
+            Uri uri = Uri.parse("https://github.com/SamuelSilvaPDR");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        });
+
+        this.yuyake.setOnClickListener(v -> {
+            Uri uri = Uri.parse("https://github.com/Yuyake23");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        });
+
+        this.logout.setOnClickListener(v -> {
+            this.auth.signOut();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        this.bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.custom_usuario_ic));
+        this.bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.play));
+        this.bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.equipe));
+        this.bottomNavigation.show(2, true);
+        this.bottomNavigation.setOnClickMenuListener(this::mudarConteudo);
+
+        this.btSalvar.setOnClickListener(v -> saveMatch());
+        this.btReiniciar.setOnClickListener(v -> configureFragment());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        this.emailuser.setText(this.auth.getCurrentUser().getEmail());
+
+        this.db.collection("users").whereEqualTo("id", auth.getCurrentUser().getUid())
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
@@ -89,39 +138,6 @@ public class HomeActivity extends AppCompatActivity {
                         Log.d("database", "Error getting documents: ", task.getException());
                     }
                 });
-
-        emailuser.setText(auth.getCurrentUser().getEmail());
-        samuelgit.setOnClickListener(v -> {
-            Uri uri = Uri.parse("https://github.com/SamuelSilvaPDR");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-        });
-
-
-        yuyake.setOnClickListener(v -> {
-            Uri uri = Uri.parse("https://github.com/Yuyake23");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-        });
-
-        this.configureFragment();
-
-        ImageView logout = findViewById(R.id.logout);
-        MeowBottomNavigation bottomNavigation = findViewById(R.id.bottomNavigation);
-
-        logout.setOnClickListener(v -> {
-            this.auth.signOut();
-            finish();
-        });
-
-        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.custom_usuario_ic));
-        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.play));
-        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.equipe));
-        bottomNavigation.show(2, true);
-        bottomNavigation.setOnClickMenuListener(this::mudarConteudo);
-
-        btSalvar.setOnClickListener(v -> saveMatch());
-        btReiniciar.setOnClickListener(v -> configureFragment());
     }
 
     private void saveMatch() {
@@ -196,6 +212,7 @@ public class HomeActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             MatchLog matchLog = document.toObject(MatchLog.class);
+                            Map<String, Object> map = document.getData();
                         }
                     } else {
                         Log.d("database", "Error getting documents: ", task.getException());
