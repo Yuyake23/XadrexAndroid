@@ -15,7 +15,6 @@ public class LocalBoard extends BoardFragment {
     private ChessPosition sourcePosition;
     private ChessPosition targetPosition;
 
-
     public LocalBoard(Do doWhenFinish) {
         super(doWhenFinish);
     }
@@ -29,17 +28,17 @@ public class LocalBoard extends BoardFragment {
             } else if (targetPosition == null) {
                 targetPosition = ChessPosition.fromPosition(new Position(i, j));
                 try {
-                    this.chessMatch.performChessMove(sourcePosition, targetPosition, null);
+                    chessMatch.performChessMove(sourcePosition, targetPosition, null);
                 } catch (NonePieceToPromoteWasGiven e) {
                     this.onNeedPieceToPromote(sourcePosition, targetPosition);
                 }
                 sourcePosition = targetPosition = null;
-                this.updateView(null);
+                super.updateView(null);
             }
 
         } catch (ChessException e) {
             sourcePosition = targetPosition = null;
-            updateView(null);
+            super.updateView(null);
         }
 
         if (chessMatch.matchIsOver()) {

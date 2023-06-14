@@ -97,18 +97,18 @@ public abstract class BoardFragment extends Fragment {
 //                    Aqui são os lugares no qual uma peça pode se mover
 //                    Não aloque os recurso da forma abaixo, assim vai precisar carregar toda hora
 //                    Olha como ta sendo feito em configureSetup()
-                    this.pieces[i][j].setBackgroundDrawable(possibleBg);
+                    this.pieces[i][j].setBackgroundDrawable(this.possibleBg);
                 } else {
-                    this.pieces[i][j].setBackgroundDrawable((i % 2 == j % 2) ? whiteBg : blackBg);
+                    this.pieces[i][j].setBackgroundDrawable((i % 2 == j % 2) ? this.whiteBg : this.blackBg);
                 }
 
             }
         }
 
-        if (chessMatch.getCheck()) {
-            Position position = chessMatch.king(chessMatch.getCurrentPlayer()).getPosition();
+        if (this.chessMatch.getCheck()) {
+            Position position = this.chessMatch.king(this.chessMatch.getCurrentPlayer()).getPosition();
             // TODO: Colocar efeito do rei em check
-            this.pieces[position.getRow()][position.getColumn()].setBackgroundDrawable(chequeBg);
+            this.pieces[position.getRow()][position.getColumn()].setBackgroundDrawable(this.chequeBg);
         }
 
         // TODO: Caso queira fazer algo com as peças capturadas:
@@ -120,7 +120,7 @@ public abstract class BoardFragment extends Fragment {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.end_mach);
         TextView textMensagem = dialog.findViewById(R.id.mensagem_fim_partida);
-        String mensagem = chessMatch.getWinner() == Color.WHITE ? "O branco ganhou!!!" : "O preto ganhou!!!";
+        String mensagem = this.chessMatch.getWinner() == Color.WHITE ? "O branco ganhou!!!" : "O preto ganhou!!!";
         textMensagem.setText(mensagem);
         dialog.show();
 
@@ -176,7 +176,7 @@ public abstract class BoardFragment extends Fragment {
     private void configureSetup() {
         this.blackBg = ContextCompat.getDrawable(requireContext(), R.color.madeira_fundo);
         this.whiteBg = ContextCompat.getDrawable(requireContext(), R.color.madeira_bege);
-        this.possibleBg = ContextCompat.getDrawable(requireContext(), R.drawable.circle);
+        this.possibleBg = ContextCompat.getDrawable(requireContext(), R.color.aviso);
         this.chequeBg = ContextCompat.getDrawable(requireContext(), R.color.teal_200);
 
         this.blackRook = ContextCompat.getDrawable(requireContext(), R.drawable.rook);

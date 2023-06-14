@@ -1,6 +1,5 @@
 package com.example.xadrez;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,6 +27,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,7 +54,6 @@ public class HomeActivity extends AppCompatActivity {
     private MeowBottomNavigation bottomNavigation;
 
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
         this.bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.custom_usuario_ic));
         this.bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.play));
         this.bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.equipe));
-
+        this.bottomNavigation.show(2, true);
 
         this.configureFragment();
     }
@@ -115,9 +114,7 @@ public class HomeActivity extends AppCompatActivity {
             finish();
         });
 
-        this.bottomNavigation.show(2, true);
         this.bottomNavigation.setOnClickMenuListener(this::mudarConteudo);
-
         this.btSalvar.setOnClickListener(v -> saveMatch());
         this.btReiniciar.setOnClickListener(v -> configureFragment());
     }
@@ -182,6 +179,7 @@ public class HomeActivity extends AppCompatActivity {
                 jogar.setVisibility(View.GONE);
                 creditos.setVisibility(View.GONE);
                 usuario.startAnimation(subir);
+                this.getLog();
                 break;
             case 2:
                 usuario.setVisibility(View.GONE);
@@ -210,15 +208,20 @@ public class HomeActivity extends AppCompatActivity {
     public void getLog() {
         this.db.collection("matches").whereEqualTo("playerId", auth.getUid())
                 .get().addOnSuccessListener(documentSnapshots -> {
-                    StringBuilder stringBuilder = new StringBuilder();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    StringBuilder sb = new StringBuilder();
                     for (QueryDocumentSnapshot document : documentSnapshots) {
                         Map<String, Object> map = document.getData();
-                        stringBuilder.append(map.get("winner")).append("\n");
-                        stringBuilder.append(map.get("timestamp")).append("\n");
-                        stringBuilder.append(map.get("playerId")).append("\n");
-                        stringBuilder.append(map.get("moveList")).append("\n");
+                        Object ganhador = map.get("winner");
+                        String data = sdf.format(((Timestamp) map.get("timestamp")).toDate());
+
+                        sb.append(ganhador == null ? "Partida não finalizada" : "Ganhador: " + ganhador).append("\n");
+                        sb.append("Data: ").append(data).append("\n");
+
+//                        sb.append(map.get("moveList")).append("\n");
+                        sb.append("\n");
                     }
-                    String result = stringBuilder.toString();
+                    String result = sb.toString();
                     partida.setText(result);
                 });
     }
