@@ -25,7 +25,6 @@ import com.example.xadrez.chess.Move;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -86,7 +85,6 @@ public class HomeActivity extends AppCompatActivity {
         this.bottomNavigation = findViewById(R.id.bottomNavigation);
 
         this.configureFragment();
-
     }
 
     @Override
@@ -126,7 +124,7 @@ public class HomeActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        this.emailuser.setText(this.auth.getCurrentUser().getEmail());
+        this.emailuser.setText(Objects.requireNonNull(this.auth.getCurrentUser()).getEmail());
 
         this.db.collection("users").whereEqualTo("id", auth.getCurrentUser().getUid())
                 .get().addOnCompleteListener(task -> {
@@ -139,7 +137,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 });
 
-        this.teste();
+        this.getLog();
     }
 
     private void saveMatch() {
@@ -151,17 +149,15 @@ public class HomeActivity extends AppCompatActivity {
             moveList.add(moveToMap(moves.get(i)));
         }
 
-        map.put("playerId", auth.getCurrentUser().getUid());
+        map.put("playerId", auth.getUid());
         map.put("moveList", moveList);
         map.put("timestamp", new Timestamp(new Date()));
         map.put("winner", board.getChessMatch().matchIsOver() ? board.getChessMatch().getWinner() : null);
 
         CollectionReference matches = db.collection("matches");
-        matches.add(map).addOnCompleteListener(task -> {
-            Toast.makeText(this, task.isSuccessful() ? "Partida salva" :
-                    "Não foi possível salvar a partida", Toast.LENGTH_SHORT).show();
-        });
-        this.teste();
+        matches.add(map).addOnCompleteListener(task -> Toast.makeText(this, task.isSuccessful() ? "Partida salva" :
+                "Não foi possível salvar a partida", Toast.LENGTH_SHORT).show());
+        this.getLog();
     }
 
 
@@ -201,31 +197,26 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void configureFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        this.board = new BoardFragment(this::saveMatch);
+        this.board = new LocalBoard(this::saveMatch);
         fragmentTransaction.add(R.id.boardFragment, this.board);
         fragmentTransaction.commit();
     }
 
-    public void teste() {
-        db.collection("matches").whereEqualTo("playerId", auth.getUid())
-                .get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        StringBuilder stringBuilder = new StringBuilder();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Map<String, Object> map = document.getData();
-                            stringBuilder.append(map.get("winner")).append("\n");
-                            stringBuilder.append(map.get("timestamp")).append("\n");
-                            stringBuilder.append(map.get("playerId")).append("\n");
-                            stringBuilder.append(map.get("moveList")).append("\n");
-                        }
-                        String result = stringBuilder.toString();
-                        partida.setText(result);
-                        Log.d("Teste", result);
-                    } else {
-                        Log.d("database", "Error getting documents: ", task.getException());
+    public void getLog() {
+        this.db.collection("matches").whereEqualTo("playerId", auth.getUid())
+                .get().addOnSuccessListener(documentSnapshots -> {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (QueryDocumentSnapshot document : documentSnapshots) {
+                        Map<String, Object> map = document.getData();
+                        stringBuilder.append(map.get("winner")).append("\n");
+                        stringBuilder.append(map.get("timestamp")).append("\n");
+                        stringBuilder.append(map.get("playerId")).append("\n");
+                        stringBuilder.append(map.get("moveList")).append("\n");
                     }
+                    String result = stringBuilder.toString();
+                    partida.setText(result);
                 });
     }
 }

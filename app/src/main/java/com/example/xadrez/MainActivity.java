@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         this.xadrez = findViewById(R.id.xadrez);
 
         this.auth = FirebaseAuth.getInstance();
-//        Utils.setSize(getWindowManager());
 
         xadrez.startAnimation(lado);
 
