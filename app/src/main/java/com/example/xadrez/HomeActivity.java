@@ -143,7 +143,7 @@ public class HomeActivity extends AppCompatActivity {
             Toast.makeText(this, task.isSuccessful() ? "Partida salva" :
                     "Não foi possível salvar a partida", Toast.LENGTH_SHORT).show();
         });
-
+        teste();
     }
 
 
@@ -191,16 +191,23 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void teste() {
-        db.collection("match").whereEqualTo("id", auth.getUid())
+        db.collection("matches").whereEqualTo("playerId", auth.getUid())
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        StringBuilder stringBuilder = new StringBuilder();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            MatchLog matchLog = document.toObject(MatchLog.class);
+                            Map<String,Object> map = document.getData();
+                            stringBuilder.append(map.get("winner")).append("\n");
+                            stringBuilder.append(map.get("timestamp")).append("\n");
+                            stringBuilder.append(map.get("playerId")).append("\n");
+                            stringBuilder.append(map.get("moveList")).append("\n");
                         }
+                        String result = stringBuilder.toString();
+                        partida.setText(result);
+                        Log.d("Teste", result);
                     } else {
                         Log.d("database", "Error getting documents: ", task.getException());
                     }
                 });
     }
-
 }
