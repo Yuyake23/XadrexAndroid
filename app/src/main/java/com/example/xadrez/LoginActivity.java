@@ -24,8 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etSenha;
     private TextView tvAvisos;
-    private Button btEntrar;
-    private ProgressBar espere;
+    private Button btEntrar, btCadastro;
+    private ProgressBar progressBar;
+    private ImageView btVoltar;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -40,29 +41,34 @@ public class LoginActivity extends AppCompatActivity {
         this.etSenha = findViewById(R.id.input_senha);
         this.tvAvisos = findViewById(R.id.text_avisos);
         this.btEntrar = findViewById(R.id.bt_entrar);
-        this.espere = findViewById(R.id.progress);
+        this.progressBar = findViewById(R.id.progress);
 
-        Button btCadastro = findViewById(R.id.bt_cadastrar);
-        ImageView voltar = findViewById(R.id.voltar);
+        this.btCadastro = findViewById(R.id.bt_cadastrar);
+        this.btVoltar = findViewById(R.id.voltar);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        this.btVoltar.setOnClickListener(v -> onBackPressed());
         this.btEntrar.setOnClickListener(this::onClickEntrar);
 
-        btCadastro.setOnClickListener(v -> {
+        this.btCadastro.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
             startActivity(intent);
         });
 
-        voltar.setOnClickListener(v -> onBackPressed());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         this.btEntrar.setClickable(true);
     }
 
-    private void onClickEntrar(View v) {
+    private void onClickEntrar(View btEntrar) {
         String email = this.etEmail.getText().toString();
         String senha = this.etSenha.getText().toString();
         if (email.isEmpty()) {
@@ -80,18 +86,18 @@ public class LoginActivity extends AppCompatActivity {
         this.auth.signInWithEmailAndPassword(email, senha)
                 .addOnSuccessListener(this::abrirJogo)
                 .addOnFailureListener(e -> {
-                    espere.setVisibility(View.GONE);
-                    tvAvisos.setText("Falha ao logar: " + e.getMessage());
-                    v.setClickable(true);
+                    this.progressBar.setVisibility(View.GONE);
+                    this.tvAvisos.setText("Falha ao logar: " + e.getMessage());
+                    btEntrar.setClickable(true);
                 });
-        espere.setVisibility(View.VISIBLE);
-        v.setClickable(false);
+        this.progressBar.setVisibility(View.VISIBLE);
+        btEntrar.setClickable(false);
     }
 
 
     private void abrirJogo(AuthResult authResult) {
         Intent intent = new Intent(this, HomeActivity.class);
-        espere.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
         startActivity(intent);
     }
 

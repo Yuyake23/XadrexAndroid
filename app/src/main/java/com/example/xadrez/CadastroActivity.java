@@ -10,9 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.xadrez.dto.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,6 +29,8 @@ public class CadastroActivity extends AppCompatActivity {
     private EditText etSenha;
     private EditText etSenhaConfirma;
     private TextView tvAvisos;
+    private ImageView btVoltar;
+    private Button btConfirma;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +47,18 @@ public class CadastroActivity extends AppCompatActivity {
         this.etSenhaConfirma = findViewById(R.id.input_rep_senha);
         this.tvAvisos = findViewById(R.id.text_avisos);
 
-        ImageView voltar = findViewById(R.id.voltar);
-        Button btConfirma = findViewById(R.id.btn_cadastrar);
-
-        btConfirma.setOnClickListener(this::onClickCadastrar);
-
-        voltar.setOnClickListener(v -> onBackPressed());
+        this.btVoltar = findViewById(R.id.voltar);
+        this.btConfirma = findViewById(R.id.btn_cadastrar);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        this.btConfirma.setOnClickListener(this::onClickCadastrar);
+        this.btVoltar.setOnClickListener(v -> onBackPressed());
+    }
+
 
     private void onClickCadastrar(View v) {
         String username = this.etUsuario.getText().toString();

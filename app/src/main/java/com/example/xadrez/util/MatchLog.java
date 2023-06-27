@@ -1,4 +1,4 @@
-package com.example.xadrez;
+package com.example.xadrez.util;
 
 import com.example.xadrez.chess.Color;
 import com.example.xadrez.chess.Move;
